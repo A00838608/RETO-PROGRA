@@ -1,4 +1,5 @@
 #parte 1
+#El juego de mesa es un laberinto que permite que un jugador navegue por el laberinto utilizando comandos de movimiento.
 Instrucciónes = [...]
 print ("Instrucciónes")
 avatar = input("Teclea un simbolo para que sea tu avatar:")
