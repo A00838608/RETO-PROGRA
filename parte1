@@ -1,1 +1,6 @@
 #parte 1
+Instrucciónes = [...]
+print ("Instrucciónes")
+avatar = input("Teclea un simbolo para que sea tu avatar:")
+print("Empezemos")
+LUEGO VA LA MATRIZ
