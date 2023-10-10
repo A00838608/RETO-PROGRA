@@ -78,7 +78,7 @@ def visual_maze(grid, width, height):
                 row.append("|")
 
         maze.append(row)
-    maze[height-1][width*2] = '@'
+    maze[height-1][width*2] = '*'
     maze[0][0] = 'o'
     return(maze)
 
@@ -90,7 +90,6 @@ def display_maze(maze):
 
 def play_game(maze, curr_position, prev_char):
     move = input('Next move: ')
-    print(maze)
     maze[curr_position[0]][curr_position[1]] = prev_char
     if move == 'w':
         curr_position[0] -=1
@@ -101,7 +100,7 @@ def play_game(maze, curr_position, prev_char):
     elif move == 'd':
         curr_position[1] +=1
     prev_char = maze[curr_position[0]][curr_position[1]]
-    maze[curr_position[0]][curr_position[1]] = '@'
+    maze[curr_position[0]][curr_position[1]] = '*'
     print_maze = maze[:]
     display_maze(print_maze)
     return maze, curr_position, prev_char
@@ -114,6 +113,5 @@ print_maze = maze[:]
 display_maze(print_maze)
 curr_position = [height-1, width*2]
 prev_char = "|"
-
 while maze[0][0]== 'o': 
-    maze, curr_positionm, prev_char = play_game(maze, curr_position, prev_char)   
+    maze, curr_positionm, prev_char = play_game(maze, curr_position, prev_char)       
