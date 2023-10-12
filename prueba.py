@@ -8,22 +8,23 @@ DY = {E: 0, W: 0, N: -1, S: 1}
 
 # Dictionary mapping each direction to its opposite direction
 OPPOSITE = {E: W, W: E, N: S, S: N}
-moves = 0
 
-def carve_passages_from(cx, cy, grid):
-    directions = [N, S, E, W]
-    random.shuffle(directions)
 
-    for direction in directions:
-        nx, ny = cx + DX[direction], cy + DY[direction]
+# def carve_passages_from(cx, cy, grid):
+#     directions = [N, S, E, W]
+#     random.shuffle(directions)
 
-        if 0 <= ny < len(grid) and 0 <= nx < len(grid[ny]) and grid[ny][nx] == 0:
-            grid[cy][cx] |= direction
-            grid[ny][nx] |= OPPOSITE[direction]
-            carve_passages_from(nx, ny, grid)
+#     for direction in directions:
+#         nx, ny = cx + DX[direction], cy + DY[direction]
+
+#         if 0 <= ny < len(grid) and 0 <= nx < len(grid[ny]) and grid[ny][nx] == 0:
+#             grid[cy][cx] |= direction
+#             grid[ny][nx] |= OPPOSITE[direction]
+#             print(grid)
+#             carve_passages_from(nx, ny, grid)
 
 def generate_maze(width, height):
-    # Create a grid filled with walls (0s) using for loops
+    # Create a grid filled with walls (0s)
     grid = []
     for _ in range(height):
         row = [0] * width
@@ -114,4 +115,4 @@ display_maze(print_maze)
 curr_position = [height-1, width*2]
 prev_char = "|"
 while maze[0][0]== 'o': 
-    maze, curr_positionm, prev_char = play_game(maze, curr_position, prev_char)       
+    maze, curr_positionm, prev_char = play_game(maze, curr_position, prev_char)             
