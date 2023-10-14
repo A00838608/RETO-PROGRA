@@ -10,19 +10,6 @@ DY = {E: 0, W: 0, N: -1, S: 1}
 OPPOSITE = {E: W, W: E, N: S, S: N}
 
 
-# def carve_passages_from(cx, cy, grid):
-#     directions = [N, S, E, W]
-#     random.shuffle(directions)
-
-#     for direction in directions:
-#         nx, ny = cx + DX[direction], cy + DY[direction]
-
-#         if 0 <= ny < len(grid) and 0 <= nx < len(grid[ny]) and grid[ny][nx] == 0:
-#             grid[cy][cx] |= direction
-#             grid[ny][nx] |= OPPOSITE[direction]
-#             print(grid)
-#             carve_passages_from(nx, ny, grid)
-
 def generate_maze(width, height):
     # Create a grid filled with walls (0s)
     grid = []
@@ -79,7 +66,7 @@ def visual_maze(grid, width, height):
                 row.append("|")
 
         maze.append(row)
-    maze[height-1][width*2] = '*'
+    maze[height-1][width*2] = avatar
     maze[0][0] = 'o'
     return(maze)
 
@@ -93,19 +80,42 @@ def play_game(maze, curr_position, prev_char):
     move = input('Next move: ')
     maze[curr_position[0]][curr_position[1]] = prev_char
     if move == 'w':
-        curr_position[0] -=1
+        if maze[curr_position[0]-1][curr_position[1]] != "_" and maze[curr_position[0]-1][curr_position[1]] != "|":
+            curr_position[0] -=1
+        else:
+            print("Invalid move")
     elif move == 'a':
-        curr_position[1] -=1
+        if maze[curr_position[0]][curr_position[1]-1] != "|":
+            curr_position[1] -=1
+        else:
+            print("Invalid move")
     elif move == 's':
-        curr_position[0] +=1
+        if prev_char != "_":
+            curr_position[0] +=1
+        else:
+            print("Invalid move")
     elif move == 'd':
-        curr_position[1] +=1
+        if maze[curr_position[0]][curr_position[1]+1] != "|":
+            curr_position[1] +=1
+        else:
+            print("Invalid move")
     prev_char = maze[curr_position[0]][curr_position[1]]
-    maze[curr_position[0]][curr_position[1]] = '*'
+    maze[curr_position[0]][curr_position[1]] = avatar
     print_maze = maze[:]
     display_maze(print_maze)
     return maze, curr_position, prev_char
 
+print("JUEGO DEL LABERINTO")
+print("""En este juego tu podrias elegir tu avatar y el tamaño del laberinto.
+        
+La meta es llegar a la salida esquivando las barreras, tu avatar empezara jugando 
+en la esquina inferior derecha y la salida se encuentra en la esquina superior izquierda.
+      
+Para desplazarate puedes usar los comandos a, w, d, s. 
+      
+Para desplazarte a la derecha "a", para desplazarte a la izquierda "d", para desplazarte hacia abajo "s" y para arriba "w".  
+          
+¡Mucho exito!""")
 avatar = input('Elija un su avatar (un unico caracter del teclado): ')
 width = height = int(input('Ingrese dimensiones de su laberinto: '))  # Width and Height of the maze
 grid = generate_maze(width, height)
