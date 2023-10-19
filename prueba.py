@@ -1,23 +1,23 @@
 import random
-# Constants representing directions
+#directions
 N, S, E, W = 1, 2, 4, 8
 
-# Dictionary mapping directions to their corresponding changes in coordinates
+#direction with values
 DX = {E: 1, W: -1, N: 0, S: 0}
 DY = {E: 0, W: 0, N: -1, S: 1}
 
-# Dictionary mapping each direction to its opposite direction
+#opposite direction
 OPPOSITE = {E: W, W: E, N: S, S: N}
 
 
 def generate_maze(width, height):
-    # Create a grid filled with walls (0s)
+    #create matrix filled with 0s
     grid = []
     for _ in range(height):
         row = [0] * width
         grid.append(row)
     
-    # Start the generation from the top-left corner (0, 0)
+    #depth first algortithm starting at top left corner
     stack = [(0, 0)]
 
     while stack:
@@ -57,7 +57,7 @@ def visual_maze(grid, width, height):
 
             # Check if there's an open passage to the East (E)
             if cell & E != 0:
-                # Check if there's a connection to the South (S) in the neighboring cell
+                # Check if there's a connection to the South (S) in the next cell
                 if x + 1 < width and (grid[y][x] | grid[y][x + 1]) & S != 0:
                     row.append(" ")
                 else:
@@ -90,15 +90,17 @@ def play_game(maze, curr_position, prev_char):
         else:
             print("Invalid move")
     elif move == 's':
-        if prev_char != "_":
-            curr_position[0] +=1
-        else:
-            print("Invalid move")
+        if curr_position[0] != height-1 and curr_position != width*2 :
+            if prev_char != "_":
+                curr_position[0] +=1
+            else:
+                print("Invalid move")
     elif move == 'd':
-        if maze[curr_position[0]][curr_position[1]+1] != "|":
-            curr_position[1] +=1
-        else:
-            print("Invalid move")
+        if curr_position[0] != height-1 and curr_position != width*2 :
+            if maze[curr_position[0]][curr_position[1]+1] != "|":
+                curr_position[1] +=1
+            else:
+                print("Invalid move")
     prev_char = maze[curr_position[0]][curr_position[1]]
     maze[curr_position[0]][curr_position[1]] = avatar
     print_maze = maze[:]
@@ -124,5 +126,8 @@ print_maze = maze[:]
 display_maze(print_maze)
 curr_position = [height-1, width*2]
 prev_char = "|"
+
 while maze[0][0]== 'o': 
-    maze, curr_positionm, prev_char = play_game(maze, curr_position, prev_char)             
+    maze, curr_positionm, prev_char = play_game(maze, curr_position, prev_char)  
+
+print("Lo has logrado!!")   
